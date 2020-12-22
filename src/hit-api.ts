@@ -38,7 +38,7 @@ interface IProcessedStockData {
     sentiment: number;
     index: number;
     lastUpdate: string;
-    changePercentage: number;
+    price: IPrice;
 }
 
 interface IResponse {
@@ -66,7 +66,7 @@ const _handleResponse = (
                     index: index,
                     sentiment: sentiment,
                     lastUpdate: body.lastUpdate,
-                    changePercentage: stonk.price.changePercentage,
+                    price: stonk.price,
                 };
             }
         );
