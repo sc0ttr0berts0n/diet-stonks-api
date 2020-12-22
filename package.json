@@ -1,8 +1,8 @@
 {
     "scripts": {
+        "build": "tsc",
         "prestart": "npm run build",
         "postinstall": "build",
-        "build": "tsc",
         "start": "node ./public/js/index.js"
     },
     "devDependencies": {
