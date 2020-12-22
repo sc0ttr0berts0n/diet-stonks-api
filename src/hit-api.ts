@@ -13,6 +13,8 @@ interface IRawStock {
     score: number;
     change: number;
     comments: IRawStockComments[];
+    price: IPrice;
+    changePercent: number;
 }
 
 interface IRawStockData {
@@ -20,9 +22,14 @@ interface IRawStockData {
     lastUpdate: string;
 }
 
-interface IRawResponse {
-    status: number;
-    json(): IRawStockData;
+interface IPrice {
+    current: number;
+    open: number;
+    high: number;
+    low: number;
+    previousClose: number;
+    change: number;
+    changePercentage: number;
 }
 
 interface IProcessedStockData {
@@ -31,6 +38,7 @@ interface IProcessedStockData {
     sentiment: number;
     index: number;
     lastUpdate: string;
+    changePercentage: number;
 }
 
 interface IResponse {
@@ -58,6 +66,7 @@ const _handleResponse = (
                     index: index,
                     sentiment: sentiment,
                     lastUpdate: body.lastUpdate,
+                    changePercentage: stonk.price.changePercentage,
                 };
             }
         );
