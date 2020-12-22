@@ -1,6 +1,7 @@
 {
     "scripts": {
         "prestart": "npm run build",
+        "postinstall": "build",
         "build": "tsc",
         "start": "node ./public/js/index.js"
     },
