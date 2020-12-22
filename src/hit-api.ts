@@ -2,6 +2,7 @@ import fetch from 'node-fetch';
 import Sentiment from 'sentiment';
 // import AsciiTable from 'ascii-table';
 
+// from catcher
 interface IRawStockComments {
     comment: string;
     level: number;
@@ -17,7 +18,7 @@ interface IRawStock {
     changePercent: number;
 }
 
-interface IRawStockData {
+interface IRawApiData {
     data: IRawStock[];
     lastUpdate: string;
 }
@@ -41,18 +42,18 @@ interface IProcessedStockData {
     price: IPrice;
 }
 
-interface IResponse {
+interface IApiResponse {
     status: number;
-    raw: IRawStockData | null;
+    raw: IRawApiData | null;
     data: IProcessedStockData[];
 }
 
 const _handleResponse = (
     status: number,
-    raw: IRawStockData | null,
-    body: IRawStockData
-): IResponse => {
-    const _processApiData = (body: IRawStockData) => {
+    raw: IRawApiData | null,
+    body: IRawApiData
+): IApiResponse => {
+    const _processApiData = (body: IRawApiData) => {
         return body.data.map(
             (stonk: IRawStock): IProcessedStockData => {
                 const mergedComments = stonk.comments.reduce((acc, comment) => {
