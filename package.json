@@ -1,7 +1,8 @@
 {
     "scripts": {
         "prestart": "npm run build",
-        "build": "tsc"
+        "build": "tsc",
+        "start": "node ./public/js/index.js"
     },
     "devDependencies": {
         "@tsconfig/node14": "^1.0.0",
