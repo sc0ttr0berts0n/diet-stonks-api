@@ -9,6 +9,9 @@ const port = process.env.PORT || 4000;
 // enable cors
 app.use(cors());
 
+// json support
+app.use(express.json());
+
 // respond to api requests
 app.get('/api', (req, res) => {
     hitApi('https://wall-street-analyzer.herokuapp.com/api/dietbot').then(
