@@ -43,6 +43,7 @@ interface IProcessedStockData {
 }
 
 interface IProcessedStockComments {
+    symbol: string;
     comment: string;
     sentiment: number;
     level: number;
@@ -80,15 +81,28 @@ const _handleResponse = (
         );
     };
     const _processComments = (stocks: IRawStock[]) => {
-        const comments = stocks.map((stock) => stock.comments).flat();
-        return comments.map(
-            (comment): IProcessedStockComments => {
-                return {
-                    comment: comment.comment,
-                    sentiment: new Sentiment().analyze(comment.comment).score,
-                    level: comment.level,
-                };
-            }
+        return (
+            stocks
+                // dive into each stock
+                .map((stock) => {
+                    // dive into each comment
+                    return stock.comments.map(
+                        (comment): IProcessedStockComments => {
+                            // map each comment to a processed comment
+                            // with a sentiment score
+                            return {
+                                symbol: stock.symbol,
+                                comment: comment.comment,
+                                sentiment: new Sentiment().analyze(
+                                    comment.comment
+                                ).score,
+                                level: comment.level,
+                            };
+                        }
+                    );
+                })
+                // flatten down the array to a flat comment array
+                .flat()
         );
     };
     return {
