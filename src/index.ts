@@ -5,6 +5,7 @@ import Sentiment from 'sentiment';
 
 const app = express();
 const port = process.env.PORT || 4000;
+const RELEASE = process.env.HEROKU_RELEASE_VERSION || 'beta';
 
 // enable cors
 app.use(cors());
@@ -16,7 +17,7 @@ app.use(express.json());
 app.get('/api', (req, res) => {
     hitApi('https://wall-street-analyzer.herokuapp.com/api/dietbot').then(
         (data) => {
-            res.send(data);
+            res.send({ release: RELEASE, ...data });
         }
     );
 });

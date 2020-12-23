@@ -6,6 +6,8 @@ import Sentiment from 'sentiment';
 interface IRawStockComments {
     comment: string;
     level: number;
+    postTitle: string;
+    permalink: string;
 }
 
 interface IRawStock {
@@ -47,6 +49,8 @@ interface IProcessedStockComments {
     comment: string;
     sentiment: number;
     level: number;
+    postTitle: string;
+    permalink: string;
 }
 
 interface IApiResponse {
@@ -97,6 +101,8 @@ const _handleResponse = (
                                     comment.comment
                                 ).score,
                                 level: comment.level,
+                                postTitle: comment.postTitle,
+                                permalink: comment.permalink,
                             };
                         }
                     );
