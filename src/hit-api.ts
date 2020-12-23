@@ -42,10 +42,17 @@ interface IProcessedStockData {
     price: IPrice;
 }
 
+interface IProcessedStockComments {
+    comment: string;
+    sentiment: number;
+    level: number;
+}
+
 interface IApiResponse {
     status: number;
     raw: IRawApiData | null;
     data: IProcessedStockData[];
+    comments: IProcessedStockComments[];
 }
 
 const _handleResponse = (
@@ -72,10 +79,23 @@ const _handleResponse = (
             }
         );
     };
+    const _processComments = (stocks: IRawStock[]) => {
+        const comments = stocks.map((stock) => stock.comments).flat();
+        return comments.map(
+            (comment): IProcessedStockComments => {
+                return {
+                    comment: comment.comment,
+                    sentiment: new Sentiment().analyze(comment.comment).score,
+                    level: comment.level,
+                };
+            }
+        );
+    };
     return {
         status: status,
         raw: raw,
         data: _processApiData(body),
+        comments: _processComments(body.data),
     };
 };
 
