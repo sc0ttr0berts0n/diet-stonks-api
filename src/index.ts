@@ -1,6 +1,8 @@
 import hitApi from './hit-api';
 import express from 'express';
 import cors from 'cors';
+import Sentiment from 'sentiment';
+
 const app = express();
 const port = process.env.PORT || 4000;
 
@@ -14,6 +16,13 @@ app.get('/api', (req, res) => {
             res.send(data);
         }
     );
+});
+
+app.post('/sentiment', (req, res) => {
+    const result: number[] = req.body.map((mergedComments: string): number => {
+        return new Sentiment().analyze(mergedComments).score;
+    });
+    res.send(result);
 });
 
 // listen for requests
