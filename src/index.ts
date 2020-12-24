@@ -31,7 +31,7 @@ app.post('/api/v1/sentiment', (req, res) => {
     res.send(result);
 });
 
-app.post('api/v2/sentiment/', (req, res) => {
+app.post('/api/v2/sentiment/', (req, res) => {
     const result: number[] = req.body.map((mergedComments: string) => {
         const sent = new Sentiment().analyze(mergedComments);
         return sent;
