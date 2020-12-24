@@ -5,7 +5,7 @@ import Sentiment from 'sentiment';
 
 const app = express();
 const port = process.env.PORT || 4000;
-const RELEASE = process.env.HEROKU_RELEASE_VERSION || 'beta';
+const RELEASE = process.env.HEROKU_RELEASE_VERSION || 'prerelease';
 
 // enable cors
 app.use(cors());
