@@ -15,11 +15,11 @@ app.use(express.json());
 
 // respond to api requests
 app.get('/api/v1/wsa', (req, res) => {
-    hitApi('https://wall-street-analyzer.herokuapp.com/api/v1/dietbot').then(
-        (data) => {
+    hitApi('https://wall-street-analyzer.herokuapp.com/api/v1/dietbot')
+        .then((data) => {
             res.send({ release: RELEASE, ...data });
-        }
-    );
+        })
+        .catch((error) => res.send(error.message));
 });
 
 app.post('api/v1/sentiment', (req, res) => {
