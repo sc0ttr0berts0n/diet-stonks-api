@@ -14,17 +14,26 @@ app.use(cors());
 app.use(express.json());
 
 // respond to api requests
-app.get('/api', (req, res) => {
-    hitApi('https://wall-street-analyzer.herokuapp.com/api/dietbot').then(
+app.get('/api/v1/wsa', (req, res) => {
+    hitApi('https://wall-street-analyzer.herokuapp.com/api/v1/dietbot').then(
         (data) => {
             res.send({ release: RELEASE, ...data });
         }
     );
 });
 
-app.post('/sentiment', (req, res) => {
+app.post('api/v1/sentiment', (req, res) => {
     const result: number[] = req.body.map((mergedComments: string): number => {
-        return new Sentiment().analyze(mergedComments).score;
+        const sent = new Sentiment().analyze(mergedComments);
+        return sent.score;
+    });
+    res.send(result);
+});
+
+app.post('api/v2/sentiment/', (req, res) => {
+    const result: number[] = req.body.map((mergedComments: string) => {
+        const sent = new Sentiment().analyze(mergedComments);
+        return sent;
     });
     res.send(result);
 });
