@@ -132,7 +132,8 @@ const hitAPI = async (url: string) => {
         .then((body) => {
             raw = body;
             return _handleResponse(status, raw, body);
-        });
+        })
+        .catch((error) => error);
 };
 
 export default hitAPI;

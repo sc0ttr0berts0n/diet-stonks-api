@@ -13,7 +13,7 @@ app.use(cors());
 // json support
 app.use(express.json());
 
-// respond to api requests
+// hit catchers api and respond with parsed data
 app.get('/api/v1/wsa', (req, res) => {
     hitApi('https://wall-street-analyzer.herokuapp.com/api/v1/dietbot')
         .then((data) => {
@@ -22,7 +22,8 @@ app.get('/api/v1/wsa', (req, res) => {
         .catch((error) => res.send(error.message));
 });
 
-app.post('api/v1/sentiment', (req, res) => {
+// give sentiment analysis of array in JSON body
+app.post('/api/v1/sentiment', (req, res) => {
     const result: number[] = req.body.map((mergedComments: string): number => {
         const sent = new Sentiment().analyze(mergedComments);
         return sent.score;
