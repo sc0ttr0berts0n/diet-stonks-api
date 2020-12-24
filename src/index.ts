@@ -35,7 +35,7 @@ app.post('api/v2/sentiment/', (req, res) => {
         const sent = new Sentiment().analyze(mergedComments);
         return sent;
     });
-    res.send(result);
+    res.send({ release: RELEASE, ...result });
 });
 
 // listen for requests
