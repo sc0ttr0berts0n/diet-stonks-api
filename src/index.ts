@@ -30,7 +30,7 @@ app.post('/api/v1/sentiment', (req, res) => {
         return sent.score;
     });
     res.send(result);
-    console.log(req);
+    console.log(req.hostname);
 });
 
 app.post('/api/v2/sentiment/', (req, res) => {
