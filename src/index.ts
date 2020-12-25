@@ -16,8 +16,10 @@ app.use(express.json());
 // hit catchers api and respond with parsed data
 app.get('/api/v1/wsa', (req, res) => {
     hitApi('https://wall-street-analyzer.herokuapp.com/api/v1/dietbot')
-        .then((data) => {
-            res.send({ release: RELEASE, ...data });
+        .then((apiResponse) => {
+            const data = { release: RELEASE, ...apiResponse };
+            res.send(data);
+            console.log(req);
         })
         .catch((error) => res.send(error.message));
 });
