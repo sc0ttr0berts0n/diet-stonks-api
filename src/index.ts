@@ -19,7 +19,6 @@ app.get('/api/v1/wsa', (req, res) => {
         .then((apiResponse) => {
             const data = { release: RELEASE, ...apiResponse };
             res.send(data);
-            console.log(req);
         })
         .catch((error) => res.send(error.message));
 });
@@ -31,6 +30,7 @@ app.post('/api/v1/sentiment', (req, res) => {
         return sent.score;
     });
     res.send(result);
+    console.log(req);
 });
 
 app.post('/api/v2/sentiment/', (req, res) => {
